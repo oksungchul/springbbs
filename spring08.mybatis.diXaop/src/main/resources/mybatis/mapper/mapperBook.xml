@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.mapper.mapperBook">
+    <select id="getSQLSelectAll"  resultType="ModelBook">
+           select * from book order by bookid asc    
+     </select>
+     <select id="getSQLSelectLike" parameterType="string" resultType="ModelBook">
+           select * from book where bookname like '%'||#{bookname}||'%'     
+     </select>
+     <insert id="setSQLInsert" parameterType="ModelBook" >
+           INSERT INTO BOOK(BOOKID, BOOKNAME,PUBLISHER,YEAR,PRICE,DTM,USE_YN,AUTHID )
+           VALUES(#{bookid},#{bookname},#{publisher},#{year},#{price},#{dtm},#{use_yn},#{authid})        
+     </insert>
+     <update id="setSQLUpdate" parameterType="ModelBook">
+           update book set price = #{price},year = #{year} where bookname =#{bookname} 
+     </update>
+     <delete id="setSQLDelete" parameterType="string">
+           delete from book where 1=1 and bookname =#{bookname}
+     </delete>
+     
+</mapper>

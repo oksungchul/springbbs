@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mybatis.mapper.mapperUser">
+
+<insert id="insert" parameterType="ModelUser">
+    INSERT INTO TB_USER(USERID,EMAIL,PASSWD,NAME,MOBILE,RETIREYN,INSERTDT,UPDATEDT)
+  VALUES( #{userid},#{email},#{passwd},#{name},#{mobile},#{retireYN},#{InsertDT},#{UpdateDT})
+</insert>
+
+<select id="login" parameterType="ModelUser" resultType="ModelUser">
+    select * from tb_user where userid=#{userid} and passwd=#{passwd} and retireyn=1
+</select>
+
+<update id="logout" parameterType="string">
+</update>
+
+<update id="updateUserInfo" parameterType="hashmap">
+ update tb_user set email=#{ updatevalue.email},passwd=#{updatevalue.passwd},mobile=#{updatevalue.mobile},retireYN=#{updatevalue.retireYN},updatedt=#{updatevalue.UpdateDT},name=#{updatevalue.name}
+    where userid=#{searchvalue.userid}
+</update>
+
+<update id="updatePasswd" parameterType="hashmap">
+update tb_user set passwd=#{updatevalue.passwd}
+    where userid=#{searchvalue.userid}
+</update>
+
+<update id="delete" parameterType="string" >
+    update tb_user set retireyn=0
+    where userid=#{userid}
+</update>
+
+<select id="selectOne" parameterType="string" resultType="ModelUser">
+    select * from tb_user where userid=#{userid}
+</select>
+<select id="selectUserList" parameterType="ModelUser" resultType="ModelUser">
+  select * from tb_user where userid=#{userid}
+</select>
+
+</mapper>
